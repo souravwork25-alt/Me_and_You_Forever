@@ -3,18 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Only For BABU ❤️</title>
+<title>Only For Risha ❤️</title>
 
 <!-- EMAILJS -->
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 <script>
 (function(){
- emailjs.init("YOUR_PUBLIC_KEY"); // 🔴 REPLACE
+  emailjs.init("YOUR_PUBLIC_KEY"); // 🔴 REPLACE
 })();
 </script>
 
 <style>
 :root{--pink:#ff2e63;--glowSpeed:1.2s}
+
+/* ===== BASE ===== */
 body{
  margin:0;min-height:100vh;
  background:linear-gradient(135deg,#ff4e8d,#ff9a9e);
@@ -29,30 +31,54 @@ button{
  border:none;cursor:pointer;font-size:16px;
  margin:8px;transition:transform .25s;
 }
+button:hover{transform:scale(1.07)}
 #yesBtn,#noBtn{min-width:140px}
+
+/* ===== PASSWORD ===== */
+#lockScreen{text-align:center}
+#lockScreen input{
+ padding:14px;border-radius:20px;border:none;
+ font-size:16px;width:220px;text-align:center
+}
+#unlockBtn{background:var(--pink);color:white}
+
+/* ===== CARD ===== */
 .card{
  display:none;background:rgba(255,255,255,.18);
  padding:24px;border-radius:20px;
  max-width:420px;width:100%;
  text-align:center;
  box-shadow:0 15px 40px rgba(0,0,0,.3);
+ animation:fadeIn 1s forwards;
 }
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
 .buttons-row{display:flex;justify-content:center;gap:12px}
 #yesBtn{background:var(--pink);color:white;font-weight:bold}
 #noBtn{background:white;color:var(--pink)}
-#kissBtn{display:none;background:#ff69b4;color:white;font-weight:bold}
-.glow{animation:glowPulse var(--glowSpeed) infinite alternate}
-@keyframes glowPulse{
- from{box-shadow:0 0 10px rgba(255,46,99,.6)}
- to{box-shadow:0 0 30px rgba(255,46,99,1)}
+
+#kissBtn{
+ display:none;background:#ff69b4;
+ color:white;font-weight:bold
 }
-.nervous{animation:shake .4s infinite}
+
+/* ===== EFFECTS ===== */
 @keyframes shake{
  0%,100%{transform:translate(0)}
  25%{transform:translate(-2px,2px)}
  50%{transform:translate(2px,-2px)}
  75%{transform:translate(-2px,-2px)}
 }
+.nervous{animation:shake .4s infinite}
+
+.glow{
+ animation:glowPulse var(--glowSpeed) infinite alternate
+}
+@keyframes glowPulse{
+ from{box-shadow:0 0 10px rgba(255,46,99,.6)}
+ to{box-shadow:0 0 30px rgba(255,46,99,1)}
+}
+
 .explode{
  position:fixed;font-size:22px;
  animation:explode 1.2s forwards
@@ -61,6 +87,8 @@ button{
  from{transform:scale(0);opacity:1}
  to{transform:translate(var(--x),var(--y)) scale(1.4);opacity:0}
 }
+
+/* ===== SLIDESHOW ===== */
 #slideshow{display:none;margin-top:16px}
 .slide{display:none}
 .slide.active{display:block}
@@ -78,6 +106,8 @@ button{
  display:inline-block;margin:0 3px;opacity:.5
 }
 .dot.active{opacity:1}
+
+/* ===== COUNTDOWN ===== */
 #countdownBox{
  display:none;margin-top:14px;
  background:rgba(0,0,0,.25);
@@ -87,11 +117,15 @@ button{
  margin-top:10px;font-size:14px;
  opacity:.85;font-style:italic
 }
+
+/* ===== CALM ENDING ===== */
 .calm{
  background:linear-gradient(135deg,#ffd1dc,#ffb7c5)
 }
+
 @media(max-width:480px){
  button{width:100%}
+ .buttons-row{flex-direction:row}
 }
 </style>
 </head>
@@ -101,6 +135,15 @@ button{
 <audio id="bgMusic" loop src="https://cdn.pixabay.com/download/audio/2023/03/28/audio_5d5f5a6b2b.mp3"></audio>
 <audio id="heartbeat" loop src="https://cdn.pixabay.com/download/audio/2022/10/19/audio_1c8d7d4f76.mp3"></audio>
 
+<!-- PASSWORD -->
+<div id="lockScreen">
+ <h2>🔒 Only for BABU</h2>
+ <input id="password" type="password" placeholder="Enter our secret 💕"><br>
+ <button id="unlockBtn">Unlock ❤️</button>
+ <p id="error"></p>
+</div>
+
+<!-- CARD -->
 <div class="card" id="card">
 <h1>Risha, will you be my Valentine? 💖</h1>
 
@@ -111,10 +154,10 @@ button{
 
 <div id="message"></div>
 <div id="counter"></div>
-<div id="finalMessage"></div>
 
 <button id="kissBtn">Kiss BABU 😘</button>
 
+<!-- SLIDESHOW -->
 <div id="slideshow">
  <div class="slide active">
   <img src="photo1.jpeg">
@@ -132,7 +175,7 @@ button{
   <img src="photo4.jpeg">
   <p class="caption">BABU + me = my safest place</p>
  </div>
- <div class="slide final">
+ <div class="slide">
   <p class="caption big">More memories loading… 💞</p>
  </div>
  <div class="dots" id="dots"></div>
@@ -149,96 +192,114 @@ button{
 </div>
 
 <script>
-const SERVICE_ID="YOUR_SERVICE_ID"; // 🔴 REPLACE
-const TEMPLATE_ID="YOUR_TEMPLATE_ID"; // 🔴 REPLACE
+/* ===== CONFIG ===== */
+const PASSWORD="Us_1402";
+const SERVICE_ID="YOUR_SERVICE_ID";   // 🔴
+const TEMPLATE_ID="YOUR_TEMPLATE_ID"; // 🔴
 
-function sendEvent(event){
+function logEvent(e){
  emailjs.send(SERVICE_ID,TEMPLATE_ID,{
-  event:event,
+  event:e,
   time:new Date().toLocaleString()
  });
 }
 
-/* INIT */
-document.getElementById("card").style.display="block";
-document.getElementById("bgMusic").play();
-sendEvent("Page opened by BABU");
+/* ===== PASSWORD ===== */
+unlockBtn.onclick=()=>{
+ if(password.value===PASSWORD){
+  lockScreen.style.display="none";
+  card.style.display="block";
+  bgMusic.play();
+  logEvent("Page unlocked by BABU");
+ }else{
+  error.innerText="Wrong secret 😜";
+ }
+};
 
-/* NO BUTTON */
-const noBtn=document.getElementById("noBtn");
-const yesBtn=document.getElementById("yesBtn");
+/* ===== NO BUTTON ===== */
 let escape=0,detached=false;
-
-function moveNo(){
- escape++; sendEvent("NO tried");
+noBtn.onmouseenter=noBtn.ontouchstart=()=>{
+ escape++; logEvent("NO escaped");
  if(!detached){
   detached=true;
   noBtn.style.position="fixed";
   document.body.appendChild(noBtn);
  }
- noBtn.style.left=Math.random()*(window.innerWidth-120)+"px";
+ noBtn.style.left=Math.random()*(window.innerWidth-140)+"px";
  noBtn.style.top=Math.random()*(window.innerHeight-60)+"px";
-}
-noBtn.onmouseenter=moveNo;
-noBtn.ontouchstart=e=>{e.preventDefault();moveNo()};
+ if(escape>1){
+  yesBtn.classList.add("glow");
+  heartbeat.play();
+ }
+ if(escape>=3) noBtn.classList.add("nervous");
+};
 
-/* YES */
+/* ===== YES ===== */
 yesBtn.onclick=()=>{
- sendEvent("YES clicked 💕");
+ logEvent("YES clicked 💕");
  yesBtn.style.display=noBtn.style.display="none";
- document.getElementById("kissBtn").style.display="inline-block";
- document.getElementById("message").innerHTML=
- `BABU,<br>I fell in love with your clumsiness & baby acts ❤️`;
+ kissBtn.style.display="inline-block";
+ message.innerHTML=
+ `BABU,<br>I fell in love with your clumsiness,<br>
+ the way you act like a baby sometimes ❤️`;
 };
 
-/* KISS */
-let whatsappOpened=false;
-document.getElementById("kissBtn").onclick=()=>{
- sendEvent("KISS 😘");
- document.getElementById("slideshow").style.display="block";
- document.getElementById("countdownBox").style.display="block";
+/* ===== KISS ===== */
+kissBtn.onclick=()=>{
+ logEvent("KISS 😘");
+ kissBtn.disabled=true;
+ document.body.classList.add("calm");
+ slideshow.style.display="block";
+ countdownBox.style.display="block";
+
+ for(let i=0;i<14;i++){
+  const h=document.createElement("div");
+  h.className="explode";h.innerText="💖";
+  h.style.left="50vw";h.style.top="60vh";
+  h.style.setProperty("--x",`${Math.random()*200-100}px`);
+  h.style.setProperty("--y",`${Math.random()*200-100}px`);
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),1200);
+ }
 };
 
-/* SLIDESHOW */
-let idx=0,slides=document.querySelectorAll(".slide");
-let dotsBox=document.getElementById("dots"),interval;
-
+/* ===== SLIDESHOW ===== */
+let idx=0;
+const slides=document.querySelectorAll(".slide");
+const dotsBox=document.getElementById("dots");
 slides.forEach((_,i)=>{
- let d=document.createElement("span");
+ const d=document.createElement("span");
  d.className="dot"+(i===0?" active":"");
  dotsBox.appendChild(d);
 });
 const dots=document.querySelectorAll(".dot");
-
 function show(n){
  slides.forEach(s=>s.classList.remove("active"));
  dots.forEach(d=>d.classList.remove("active"));
  slides[n].classList.add("active");
  if(dots[n])dots[n].classList.add("active");
 }
-function start(){interval=setInterval(()=>{idx=(idx+1)%slides.length;show(idx)},4000)}
-function stop(){clearInterval(interval)}
-document.getElementById("slideshow").addEventListener("mousedown",stop);
-document.getElementById("slideshow").addEventListener("touchstart",stop);
-document.getElementById("slideshow").addEventListener("mouseup",start);
-document.getElementById("slideshow").addEventListener("touchend",start);
-start();
+let interval=setInterval(()=>{
+ idx=(idx+1)%slides.length;show(idx)
+},4000);
+slideshow.onmousedown=slideshow.ontouchstart=()=>clearInterval(interval);
+slideshow.onmouseup=slideshow.ontouchend=()=>interval=setInterval(()=>{
+ idx=(idx+1)%slides.length;show(idx)
+},4000);
 
-/* COUNTDOWN + SAVE */
+/* ===== COUNTDOWN ===== */
 const picker=document.getElementById("datePicker");
 const text=document.getElementById("countdownText");
-
 function startCountdown(d){
  setInterval(()=>{
   const diff=d-new Date();
   if(diff<=0){text.innerText="It’s today, BABU 😍";return}
-  const days=Math.floor(diff/86400000);
-  text.innerText=`${days} days to go 💕`;
+  text.innerText=`${Math.floor(diff/86400000)} days to go 💕`;
  },1000);
 }
 picker.onchange=()=>{
  localStorage.setItem("date",picker.value);
- sendEvent("Date selected by BABU");
+ logEvent("Date selected by BABU");
  startCountdown(new Date(picker.value+"T00:00"));
 };
 const saved=localStorage.getItem("date");
