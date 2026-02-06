@@ -9,7 +9,7 @@
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 <script>
 (function(){
- emailjs.init("jv4dBelhXAoMEvANF"); // 🔴 REPLACE
+ emailjs.init("jv4dBelhXAoMEvANF"); // 🔴 replace
 })();
 </script>
 
@@ -182,7 +182,7 @@ button:active{transform:scale(.95)}
 
 <!-- FLOATING HEARTS -->
 <script>
-for(let i=0;i<20;i++){
+for(let i=0;i<22;i++){
  const h=document.createElement("div");
  h.className="heart";
  h.innerText=["💖","💕","💗"][Math.floor(Math.random()*3)];
@@ -230,6 +230,18 @@ function heartsReact(){
    <p class="caption">BABU smiling like this melts me ❤️</p>
   </div>
   <div class="slide">
+   <img src="photo3.jpeg">
+   <p class="caption">Risha, this moment felt like home</p>
+  </div>
+  <div class="slide">
+   <img src="photo4.jpeg">
+   <p class="caption">BABU + me = my safest place</p>
+  </div>
+  <div class="slide">
+   <img src="photo5.jpeg">
+   <p class="caption">Every memory with you matters 🤍</p>
+  </div>
+  <div class="slide">
    <p class="caption big">More memories loading… 💞</p>
   </div>
   <div id="futureMemory">Add new memory someday… ✨</div>
@@ -249,7 +261,7 @@ function heartsReact(){
 /* CONFIG */
 const PASSWORD="Us_1402";
 const SERVICE_ID="service_4g3s7m7";
-const TEMPLATE_ID="template_zsq4g6";
+const TEMPLATE_ID="template_zsq4g6c";
 
 /* EMAIL LOG */
 function logEvent(e){
@@ -259,14 +271,15 @@ function logEvent(e){
  });
 }
 
-/* MUSIC FADE */
+/* MUSIC FADE (SAFE) */
 function fadeInMusic(audio){
  audio.volume=0;
- audio.play();
- let i=setInterval(()=>{
-  if(audio.volume<0.6) audio.volume+=0.02;
-  else clearInterval(i);
- },80);
+ audio.play().then(()=>{
+  let i=setInterval(()=>{
+   if(audio.volume<0.6) audio.volume+=0.02;
+   else clearInterval(i);
+  },80);
+ });
 }
 function fadeOutMusic(audio){
  let i=setInterval(()=>{
@@ -343,7 +356,7 @@ kissBtn.onclick=()=>{
  setTimeout(()=>fadeOutMusic(bgMusic),2000);
 };
 
-/* SLIDESHOW */
+/* SLIDESHOW AUTO */
 let slides=document.querySelectorAll(".slide");
 let idx=0;
 setInterval(()=>{
