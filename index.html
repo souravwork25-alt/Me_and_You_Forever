@@ -9,45 +9,93 @@
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 <script>
 (function(){
- emailjs.init("YOUR_PUBLIC_KEY"); // 🔴 replace
+ emailjs.init("jv4dBelhXAoMEvANF"); // 🔴 replace
 })();
 </script>
 
 <style>
 :root{--pink:#ff2e63}
+
+/* ===== BASE ===== */
 body{
- margin:0;min-height:100vh;
+ margin:0;
+ min-height:100vh;
  background:linear-gradient(135deg,#ff4e8d,#ff9a9e);
  font-family:'Segoe UI',sans-serif;
  color:white;
- display:flex;justify-content:center;align-items:center;
- overflow:hidden;padding:12px;
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ overflow:hidden;
+ padding:12px;
 }
+
+/* ===== FLOATING HEARTS ===== */
 .heart{
- position:fixed;bottom:-20px;opacity:.6;
- animation:floatUp linear infinite;pointer-events:none;
+ position:fixed;
+ bottom:-20px;
+ opacity:.6;
+ animation:floatUp linear infinite;
+ pointer-events:none;
 }
-@keyframes floatUp{to{transform:translateY(-120vh);opacity:0}}
+@keyframes floatUp{
+ to{transform:translateY(-120vh);opacity:0}
+}
+
+/* ===== CARD ===== */
 .card{
- background:rgba(255,255,255,.18);backdrop-filter:blur(6px);
- padding:22px 18px;border-radius:20px;
- width:100%;max-width:380px;max-height:94vh;
- text-align:center;box-shadow:0 15px 40px rgba(0,0,0,.3);
- display:none;overflow:auto;
+ background:rgba(255,255,255,.18);
+ backdrop-filter:blur(6px);
+ padding:22px 18px;
+ border-radius:20px;
+ width:100%;
+ max-width:380px;
+ max-height:94vh;
+ text-align:center;
+ box-shadow:0 15px 40px rgba(0,0,0,.3);
+ display:none;
+ overflow:auto;
 }
+
+/* ===== BUTTONS ===== */
 button{
- padding:14px 20px;border-radius:30px;border:none;
- cursor:pointer;font-size:16px;margin:8px;
+ padding:14px 20px;
+ border-radius:30px;
+ border:none;
+ cursor:pointer;
+ font-size:16px;
+ margin:8px;
+ transition:transform .25s;
 }
-.buttons-row{display:flex;gap:10px;justify-content:center}
-#yesBtn{background:var(--pink);color:white;font-weight:bold;min-width:140px}
-#noBtn{background:white;color:var(--pink);min-width:140px}
-#kissBtn{display:none;background:#ff69b4;color:white;font-weight:bold}
-.glow{animation:glowPulse 1s infinite alternate}
-@keyframes glowPulse{
- from{box-shadow:0 0 8px rgba(255,46,99,.5)}
- to{box-shadow:0 0 24px rgba(255,46,99,1)}
+button:active{transform:scale(.95)}
+
+.buttons-row{
+ display:flex;
+ justify-content:center;
+ gap:10px;
+ flex-wrap:wrap;
 }
+
+#yesBtn{
+ background:var(--pink);
+ color:white;
+ font-weight:bold;
+ min-width:140px;
+}
+#noBtn{
+ background:white;
+ color:var(--pink);
+ min-width:140px;
+}
+
+#kissBtn{
+ display:none;
+ background:#ff69b4;
+ color:white;
+ font-weight:bold;
+}
+
+/* ===== EFFECTS ===== */
 @keyframes shake{
  0%,100%{transform:translate(0)}
  25%{transform:translate(-2px,2px)}
@@ -55,34 +103,84 @@ button{
  75%{transform:translate(-2px,-2px)}
 }
 .nervous{animation:shake .4s infinite}
-#message,#counter,#calmText,#thankYou{margin-top:10px}
+
+.glow{
+ animation:glowPulse 1s infinite alternate;
+}
+@keyframes glowPulse{
+ from{box-shadow:0 0 8px rgba(255,46,99,.5)}
+ to{box-shadow:0 0 24px rgba(255,46,99,1)}
+}
+
+/* ===== TEXT ===== */
+#message,#counter,#finalMessage,#calmText,#thankYou{
+ margin-top:10px;
+ font-weight:500;
+}
 #calmText,#thankYou{display:none}
+
+/* ===== SLIDESHOW ===== */
 #slideshow{display:none;margin-top:14px}
 .slide{display:none}
 .slide.active{display:block}
 .slide img{
- width:100%;max-width:260px;border-radius:16px;
- box-shadow:0 8px 20px rgba(0,0,0,.35)
+ width:100%;
+ max-width:260px;
+ border-radius:16px;
+ box-shadow:0 8px 20px rgba(0,0,0,.35);
 }
-.caption{font-size:14px;margin-top:6px;opacity:.9}
-.caption.big{font-size:18px;margin-top:40px;font-weight:bold}
+.caption{
+ font-size:14px;
+ margin-top:6px;
+ opacity:.9;
+}
+.caption.big{
+ font-size:18px;
+ margin-top:40px;
+ font-weight:bold;
+}
+
+#futureMemory{
+ margin-top:10px;
+ font-size:14px;
+ font-style:italic;
+ opacity:.85;
+}
+
+/* ===== COUNTDOWN ===== */
 #countdownBox{
- display:none;margin-top:14px;
- background:rgba(0,0,0,.25);padding:12px;border-radius:16px
+ display:none;
+ margin-top:14px;
+ background:rgba(0,0,0,.25);
+ padding:12px;
+ border-radius:16px;
 }
-#lockScreen{text-align:center}
+
+/* ===== PASSWORD ===== */
+#lockScreen{
+ text-align:center;
+}
 #lockScreen input{
- padding:14px;border-radius:20px;border:none;
- width:220px;font-size:16px;text-align:center
+ padding:14px;
+ border-radius:20px;
+ border:none;
+ width:220px;
+ font-size:16px;
+ text-align:center;
 }
-#unlockBtn{background:var(--pink);color:white}
+#unlockBtn{
+ background:var(--pink);
+ color:white;
+}
 </style>
 </head>
 
 <body>
 
+<!-- BACKGROUND MUSIC -->
 <audio id="bgMusic" loop src="https://cdn.pixabay.com/download/audio/2023/03/28/audio_5d5f5a6b2b.mp3"></audio>
 
+<!-- FLOATING HEARTS -->
 <script>
 for(let i=0;i<22;i++){
  const h=document.createElement("div");
@@ -100,12 +198,14 @@ function heartsReact(){
 }
 </script>
 
+<!-- PASSWORD -->
 <div id="lockScreen">
  <h2>🔒 Only for BABU</h2>
  <input id="password" type="password" placeholder="Our secret 💕"><br>
  <button id="unlockBtn">Unlock ❤️</button>
 </div>
 
+<!-- CARD -->
 <div class="card" id="mainCard">
  <h2>Risha… will you be my Valentine? 💖</h2>
 
@@ -119,12 +219,32 @@ function heartsReact(){
 
  <button id="kissBtn">Kiss BABU 😘</button>
 
+ <!-- SLIDESHOW -->
  <div id="slideshow">
-  <div class="slide active"><img src="photo1.jpeg"><p class="caption">That day Risha hugged me tighter 🥺</p></div>
-  <div class="slide"><img src="photo2.jpeg"><p class="caption">BABU smiling like this melts me ❤️</p></div>
-  <div class="slide"><img src="photo3.jpeg"><p class="caption">Moments that felt like home</p></div>
-  <div class="slide"><img src="photo4.jpeg"><p class="caption">Every memory with you matters 🤍</p></div>
-  <div class="slide"><p class="caption big">More memories loading… 💞</p></div>
+  <div class="slide active">
+   <img src="photo1.jpeg">
+   <p class="caption">That day Risha hugged me tighter 🥺</p>
+  </div>
+  <div class="slide">
+   <img src="photo2.jpeg">
+   <p class="caption">BABU smiling like this melts me ❤️</p>
+  </div>
+  <div class="slide">
+   <img src="photo3.jpeg">
+   <p class="caption">Risha, this moment felt like home</p>
+  </div>
+  <div class="slide">
+   <img src="photo4.jpeg">
+   <p class="caption">BABU + me = my safest place</p>
+  </div>
+  <div class="slide">
+   <img src="photo5.jpeg">
+   <p class="caption">Every memory with you matters 🤍</p>
+  </div>
+  <div class="slide">
+   <p class="caption big">More memories loading… 💞</p>
+  </div>
+  <div id="futureMemory">Add new memory someday… ✨</div>
  </div>
 
  <div id="countdownBox">
@@ -138,97 +258,114 @@ function heartsReact(){
 </div>
 
 <script>
+/* CONFIG */
 const PASSWORD="Us_1402";
-let whatsappOpened=false;
+const SERVICE_ID="service_4g3s7m7";
+const TEMPLATE_ID="template_zsq4g6c";
 
-function fadeInMusic(a){
- a.volume=0;a.play();
- let i=setInterval(()=>{if(a.volume<0.6)a.volume+=0.02;else clearInterval(i)},80);
-}
-function fadeOutMusic(a){
- let i=setInterval(()=>{if(a.volume>0)a.volume-=0.02;else{a.pause();clearInterval(i)}},80);
+/* EMAIL LOG */
+function logEvent(e){
+ emailjs.send(SERVICE_ID,TEMPLATE_ID,{
+  event:e,
+  time:new Date().toLocaleString()
+ });
 }
 
+/* MUSIC FADE (SAFE) */
+function fadeInMusic(audio){
+ audio.volume=0;
+ audio.play().then(()=>{
+  let i=setInterval(()=>{
+   if(audio.volume<0.6) audio.volume+=0.02;
+   else clearInterval(i);
+  },80);
+ });
+}
+function fadeOutMusic(audio){
+ let i=setInterval(()=>{
+  if(audio.volume>0) audio.volume-=0.02;
+  else{audio.pause();clearInterval(i);}
+ },80);
+}
+
+/* UNLOCK */
 unlockBtn.onclick=()=>{
  if(password.value===PASSWORD){
   lockScreen.style.display="none";
   mainCard.style.display="block";
   fadeInMusic(bgMusic);
+  logEvent("Page unlocked");
  }
 };
 
+/* NO BUTTON */
 const noTexts=[
- "No 😢","Are you sure?","Really??","BABU please 🥺",
- "Risha… think again 💔","Hey! That was close 😳","Okay fine… YES is better 😌"
+ "No 😢",
+ "Are you sure?",
+ "Really??",
+ "BABU please 🥺",
+ "Risha… think again 💔",
+ "Hey! That was close 😳",
+ "Okay fine… YES is better 😌"
 ];
 let noIndex=0,escape=0,detached=false;
+
 function moveNo(){
- escape++;
+ escape++; logEvent("NO escaped");
  if(!detached){
-  detached=true;noBtn.style.position="fixed";document.body.appendChild(noBtn);
+  detached=true;
+  noBtn.style.position="fixed";
+  document.body.appendChild(noBtn);
  }
- noBtn.style.left=Math.random()*(window.innerWidth-140)+"px";
- noBtn.style.top=Math.random()*(window.innerHeight-60)+"px";
- if(noIndex<noTexts.length-1) noBtn.innerText=noTexts[++noIndex];
+ const maxX=window.innerWidth-noBtn.offsetWidth-10;
+ const maxY=window.innerHeight-noBtn.offsetHeight-10;
+ noBtn.style.left=Math.random()*maxX+"px";
+ noBtn.style.top=Math.random()*maxY+"px";
+
+ if(noIndex<noTexts.length-1){
+  noIndex++; noBtn.innerText=noTexts[noIndex];
+ }
+
  counter.innerText=`BABU avoided NO ${escape} times 😄`;
- if(escape>1){yesBtn.classList.add("glow");heartsReact()}
+
+ if(escape>1){
+  yesBtn.classList.add("glow");
+  heartsReact();
+ }
  if(escape>=3) noBtn.classList.add("nervous");
 }
 noBtn.onmouseenter=moveNo;
 noBtn.ontouchstart=e=>{e.preventDefault();moveNo()};
 
+/* YES */
 yesBtn.onclick=()=>{
+ logEvent("YES clicked");
  yesBtn.style.display=noBtn.style.display="none";
  kissBtn.style.display="inline-block";
  message.innerHTML="BABU… I fell in love with your clumsiness, your baby acts, and the way you make my world softer ❤️";
 };
 
+/* KISS */
 kissBtn.onclick=()=>{
+ logEvent("KISS clicked");
  kissBtn.disabled=true;
  slideshow.style.display="block";
  countdownBox.style.display="block";
  calmText.style.display="block";
  setTimeout(()=>thankYou.style.display="block",1200);
  setTimeout(()=>fadeOutMusic(bgMusic),2000);
-
- setTimeout(()=>{
-  if(!whatsappOpened){
-   whatsappOpened=true;
-   window.open(
-    "https://wa.me/?text="+encodeURIComponent(
-`Hey BABU ❤️,
-
-I know I’m not perfect…
-I make mistakes, I overthink,
-and sometimes I don’t say things the right way.
-
-But one thing I know for sure —
-my heart chose you, Risha 💖
-
-This Valentine’s Day,
-I just want to say sorry for every moment
-I ever hurt you without meaning to…
-
-and thank you for staying,
-for being soft,
-for being you 🌸
-
-Happy Valentine’s Day, BABU 🤍  
-– Yours`
-    ),
-    "_blank"
-   );
-  }
- },2500);
 };
 
-let slides=document.querySelectorAll(".slide"),idx=0;
+/* SLIDESHOW AUTO */
+let slides=document.querySelectorAll(".slide");
+let idx=0;
 setInterval(()=>{
  slides.forEach(s=>s.classList.remove("active"));
  idx=(idx+1)%slides.length;
  slides[idx].classList.add("active");
 },4000);
 
+/* COUNTDOWN */
 const picker=document.getElementById("datePicker");
 const text=document.getElementById("countdownText");
 function startCountdown(d){
@@ -240,145 +377,7 @@ function startCountdown(d){
 }
 picker.onchange=()=>{
  localStorage.setItem("date",picker.value);
- startCountdown(new Date(picker.value+"T00:00"));
-};
-const saved=localStorage.getItem("date");
-if(saved){picker.value=saved;startCountdown(new Date(saved+"T00:00"))}
-</script>
-
-</body>
-</html>
- <button id="kissBtn">Kiss BABU 😘</button>
-
- <div id="slideshow">
-  <div class="slide active"><img src="photo1.jpeg"><p class="caption">That day Risha hugged me tighter 🥺</p></div>
-  <div class="slide"><img src="photo2.jpeg"><p class="caption">BABU smiling like this melts me ❤️</p></div>
-  <div class="slide"><img src="photo3.jpeg"><p class="caption">Moments that felt like home</p></div>
-  <div class="slide"><img src="photo4.jpeg"><p class="caption">Every memory with you matters 🤍</p></div>
-  <div class="slide"><p class="caption big">More memories loading… 💞</p></div>
- </div>
-
- <div id="countdownBox">
-  ⏳ Our next date, BABU…<br>
-  <span id="countdownText">Date not decided yet 💭</span><br><br>
-  <input type="date" id="datePicker">
- </div>
-
- <div id="calmText">My heart is calm now ❤️</div>
- <div id="thankYou">Thank you for choosing me, BABU 🤍</div>
-</div>
-
-<script>
-const PASSWORD="Forever";
- 
- /* ===== EMAILJS IDS ===== */
-const SERVICE_ID  = "service_4g3s7m7";   // 👈 paste your Service ID here
-const TEMPLATE_ID = "template_zsq4g6c";  // 👈 paste your Template ID here
- 
-let whatsappOpened=false;
-
-function fadeInMusic(a){
- a.volume=0;a.play();
- let i=setInterval(()=>{if(a.volume<0.6)a.volume+=0.02;else clearInterval(i)},80);
-}
-function fadeOutMusic(a){
- let i=setInterval(()=>{if(a.volume>0)a.volume-=0.02;else{a.pause();clearInterval(i)}},80);
-}
-
-unlockBtn.onclick = () => {
- if (passwordInput.value === PASSWORD) {
-  lockScreen.style.display = "none";
-  mainCard.style.display = "block";
-  fadeInMusic(bgMusic);
- } else {
-  alert("Wrong password 😜");
- }
-};
-
-const noTexts=[
- "No 😢","Are you sure?","Really??","BABU please 🥺",
- "Risha… think again 💔","Hey! That was close 😳","Okay fine… YES is better 😌"
-];
-let noIndex=0,escape=0,detached=false;
-function moveNo(){
- escape++;
- if(!detached){
-  detached=true;noBtn.style.position="fixed";document.body.appendChild(noBtn);
- }
- noBtn.style.left=Math.random()*(window.innerWidth-140)+"px";
- noBtn.style.top=Math.random()*(window.innerHeight-60)+"px";
- if(noIndex<noTexts.length-1) noBtn.innerText=noTexts[++noIndex];
- counter.innerText=`BABU avoided NO ${escape} times 😄`;
- if(escape>1){yesBtn.classList.add("glow");heartsReact()}
- if(escape>=3) noBtn.classList.add("nervous");
-}
-noBtn.onmouseenter=moveNo;
-noBtn.ontouchstart=e=>{e.preventDefault();moveNo()};
-
-yesBtn.onclick=()=>{
- yesBtn.style.display=noBtn.style.display="none";
- kissBtn.style.display="inline-block";
- message.innerHTML="BABU… I fell in love with your clumsiness, your baby acts, and the way you make my world softer ❤️";
-};
-
-kissBtn.onclick=()=>{
- kissBtn.disabled=true;
- slideshow.style.display="block";
- countdownBox.style.display="block";
- calmText.style.display="block";
- setTimeout(()=>thankYou.style.display="block",1200);
- setTimeout(()=>fadeOutMusic(bgMusic),2000);
-
- setTimeout(()=>{
-  if(!whatsappOpened){
-   whatsappOpened=true;
-   window.open(
-    "https://wa.me/?text="+encodeURIComponent(
-`Hey BABU ❤️,
-
-I know I’m not perfect…
-I make mistakes, I overthink,
-and sometimes I don’t say things the right way.
-
-But one thing I know for sure —
-my heart chose you, Risha 💖
-
-This Valentine’s Day,
-I just want to say sorry for every moment
-I ever hurt you without meaning to…
-
-and thank you for staying,
-for being soft,
-for being you 🌸
-
-Happy Valentine’s Day, BABU 🤍  
-– Yours
-*Now_Please_again_go_back_to_the_browser*`
-    ),
-    "_blank"
-   );
-  }
- },2500);
-};
-
-let slides=document.querySelectorAll(".slide"),idx=0;
-setInterval(()=>{
- slides.forEach(s=>s.classList.remove("active"));
- idx=(idx+1)%slides.length;
- slides[idx].classList.add("active");
-},4000);
-
-const picker=document.getElementById("datePicker");
-const text=document.getElementById("countdownText");
-function startCountdown(d){
- setInterval(()=>{
-  const diff=d-new Date();
-  if(diff<=0){text.innerText="It’s today BABU 😍";return}
-  text.innerText=`${Math.floor(diff/86400000)} days to go 💕`;
- },1000);
-}
-picker.onchange=()=>{
- localStorage.setItem("date",picker.value);
+ logEvent("Date selected");
  startCountdown(new Date(picker.value+"T00:00"));
 };
 const saved=localStorage.getItem("date");
