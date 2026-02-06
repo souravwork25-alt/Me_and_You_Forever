@@ -283,14 +283,28 @@ function fadeOutMusic(audio){
 }
 
 /* UNLOCK */
-unlockBtn.onclick=()=>{
- if(password.value===PASSWORD){
-  lockScreen.style.display="none";
-  mainCard.style.display="block";
-  fadeInMusic(bgMusic);
-  logEvent("Page unlocked");
- }
+unlockBtn.onclick = () => {
+  if (password.value === PASSWORD) {
+    lockScreen.style.display = "none";
+    mainCard.style.display = "block";
+
+    // 🔑 FORCE PLAY INSIDE USER GESTURE (CRITICAL)
+    bgMusic.volume = 0;
+    bgMusic.play().catch(()=>{});
+
+    // Smooth fade-in
+    let fade = setInterval(() => {
+      if (bgMusic.volume < 0.6) {
+        bgMusic.volume += 0.02;
+      } else {
+        clearInterval(fade);
+      }
+    }, 80);
+
+    logEvent("Page unlocked");
+  }
 };
+
 
 /* NO BUTTON */
 const noTexts=[
@@ -403,6 +417,13 @@ picker.onchange=()=>{
 const saved=localStorage.getItem("date");
 if(saved){picker.value=saved;startCountdown(new Date(saved+"T00:00"))}
 </script>
+
+ 
+document.body.addEventListener("click", () => {
+  if (bgMusic.paused) {
+    bgMusic.play().catch(()=>{});
+  }
+}, { once:true });
 
 </body>
 </html>
