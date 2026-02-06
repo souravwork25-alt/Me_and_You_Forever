@@ -416,14 +416,12 @@ picker.onchange=()=>{
 };
 const saved=localStorage.getItem("date");
 if(saved){picker.value=saved;startCountdown(new Date(saved+"T00:00"))}
-</script>
-
- 
-document.body.addEventListener("click", () => {
+ document.body.addEventListener("click", () => {
   if (bgMusic.paused) {
     bgMusic.play().catch(()=>{});
   }
 }, { once:true });
+</script>
 
 </body>
 </html>
