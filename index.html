@@ -3,59 +3,97 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Only For You ❤️</title>
+<title>Only For BABU ❤️</title>
 
 <!-- EmailJS -->
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 <script>
 (function(){
-  emailjs.init("jv4dBelhXAoMEvANF"); // 🔴 REPLACE
+ emailjs.init("jv4dBelhXAoMEvANF"); // 🔴 REPLACE
 })();
 </script>
 
 <style>
-:root{--pink:#ff2e63;--glowSpeed:1.2s}
+:root{--pink:#ff2e63}
 
 /* ===== BASE ===== */
 body{
- margin:0;min-height:100vh;
+ margin:0;
+ min-height:100vh;
  background:linear-gradient(135deg,#ff4e8d,#ff9a9e);
  font-family:'Segoe UI',sans-serif;
- color:white;display:flex;
- justify-content:center;align-items:center;
- overflow:hidden;padding:10px;
- transition:background 3s ease;
+ color:white;
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ overflow:hidden;
+ padding:12px;
 }
 
-button{
- padding:14px 20px;border-radius:30px;
- border:none;cursor:pointer;font-size:16px;
- margin:8px;transition:transform .25s;
+/* ===== FLOATING HEARTS ===== */
+.heart{
+ position:fixed;
+ bottom:-20px;
+ opacity:.6;
+ animation:floatUp linear infinite;
+ pointer-events:none;
 }
-#yesBtn,#noBtn{min-width:140px}
-
-/* ===== PASSWORD ===== */
-#lockScreen{text-align:center}
-input{
- padding:14px;border-radius:20px;border:none;
- font-size:16px;width:220px;text-align:center
+@keyframes floatUp{
+ to{transform:translateY(-120vh);opacity:0}
 }
-#unlockBtn{background:var(--pink);color:white}
 
 /* ===== CARD ===== */
 .card{
- display:none;background:rgba(255,255,255,.18);
- padding:24px;border-radius:20px;
- max-width:420px;width:100%;
+ background:rgba(255,255,255,.18);
+ backdrop-filter:blur(6px);
+ padding:22px 18px;
+ border-radius:20px;
+ width:100%;
+ max-width:380px;
+ max-height:94vh;
  text-align:center;
  box-shadow:0 15px 40px rgba(0,0,0,.3);
+ display:none;
+ overflow:auto;
 }
-.buttons-row{display:flex;justify-content:center;gap:12px}
 
 /* ===== BUTTONS ===== */
-#yesBtn{background:var(--pink);color:white;font-weight:bold}
-#noBtn{background:white;color:var(--pink)}
-#kissBtn{display:none;background:#ff69b4;color:white;font-weight:bold}
+button{
+ padding:14px 20px;
+ border-radius:30px;
+ border:none;
+ cursor:pointer;
+ font-size:16px;
+ margin:8px;
+ transition:transform .25s;
+}
+button:active{transform:scale(.95)}
+
+.buttons-row{
+ display:flex;
+ justify-content:center;
+ gap:10px;
+ flex-wrap:wrap;
+}
+
+#yesBtn{
+ background:var(--pink);
+ color:white;
+ font-weight:bold;
+ min-width:140px;
+}
+#noBtn{
+ background:white;
+ color:var(--pink);
+ min-width:140px;
+}
+
+#kissBtn{
+ display:none;
+ background:#ff69b4;
+ color:white;
+ font-weight:bold;
+}
 
 /* ===== EFFECTS ===== */
 @keyframes shake{
@@ -65,119 +103,176 @@ input{
  75%{transform:translate(-2px,-2px)}
 }
 .nervous{animation:shake .4s infinite}
-.glow{animation:glowPulse var(--glowSpeed) infinite alternate}
+
+.glow{
+ animation:glowPulse 1s infinite alternate;
+}
 @keyframes glowPulse{
- from{box-shadow:0 0 10px rgba(255,46,99,.6)}
- to{box-shadow:0 0 30px rgba(255,46,99,1)}
-}
-.explode{
- position:fixed;font-size:22px;
- animation:explode 1.2s forwards
-}
-@keyframes explode{
- from{transform:scale(0);opacity:1}
- to{transform:translate(var(--x),var(--y)) scale(1.4);opacity:0}
+ from{box-shadow:0 0 8px rgba(255,46,99,.5)}
+ to{box-shadow:0 0 24px rgba(255,46,99,1)}
 }
 
+/* ===== TEXT ===== */
+#message,#counter,#finalMessage,#calmText,#thankYou{
+ margin-top:10px;
+ font-weight:500;
+}
+#calmText,#thankYou{display:none}
+
 /* ===== SLIDESHOW ===== */
-#slideshow{display:none;margin-top:16px}
+#slideshow{display:none;margin-top:14px}
 .slide{display:none}
 .slide.active{display:block}
 .slide img{
- width:100%;max-width:280px;
+ width:100%;
+ max-width:260px;
  border-radius:16px;
- box-shadow:0 8px 20px rgba(0,0,0,.35)
+ box-shadow:0 8px 20px rgba(0,0,0,.35);
 }
-.caption{font-size:14px;margin-top:6px;opacity:.9}
-.caption.big{font-size:18px;margin-top:40px;font-weight:bold}
-#futureMemory{margin-top:10px;font-size:14px;font-style:italic}
+.caption{
+ font-size:14px;
+ margin-top:6px;
+ opacity:.9;
+}
+.caption.big{
+ font-size:18px;
+ margin-top:40px;
+ font-weight:bold;
+}
+
+#futureMemory{
+ margin-top:10px;
+ font-size:14px;
+ font-style:italic;
+ opacity:.85;
+}
 
 /* ===== COUNTDOWN ===== */
 #countdownBox{
- display:none;margin-top:14px;
+ display:none;
+ margin-top:14px;
  background:rgba(0,0,0,.25);
- padding:12px;border-radius:16px
+ padding:12px;
+ border-radius:16px;
 }
 
-/* ===== ENDING ===== */
-#message,#counter,#finalMessage,#calmText,#thankYou{
- margin-top:12px;font-weight:bold
+/* ===== PASSWORD ===== */
+#lockScreen{
+ text-align:center;
 }
-#calmText,#thankYou{display:none}
-.calm{
- background:linear-gradient(135deg,#ffd1dc,#ffb7c5)
+#lockScreen input{
+ padding:14px;
+ border-radius:20px;
+ border:none;
+ width:220px;
+ font-size:16px;
+ text-align:center;
+}
+#unlockBtn{
+ background:var(--pink);
+ color:white;
 }
 </style>
 </head>
 
 <body>
 
+<!-- BACKGROUND MUSIC -->
 <audio id="bgMusic" loop src="https://cdn.pixabay.com/download/audio/2023/03/28/audio_5d5f5a6b2b.mp3"></audio>
-<audio id="heartbeat" loop src="https://cdn.pixabay.com/download/audio/2022/10/19/audio_1c8d7d4f76.mp3"></audio>
-<audio id="yesSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_9c6c7c3b6a.mp3"></audio>
+
+<!-- FLOATING HEARTS -->
+<script>
+for(let i=0;i<20;i++){
+ const h=document.createElement("div");
+ h.className="heart";
+ h.innerText=["💖","💕","💗"][Math.floor(Math.random()*3)];
+ h.style.left=Math.random()*100+"vw";
+ h.style.animationDuration=6+Math.random()*6+"s";
+ h.style.fontSize=14+Math.random()*18+"px";
+ document.body.appendChild(h);
+}
+function heartsReact(){
+ document.querySelectorAll(".heart").forEach(h=>{
+  h.innerText=["❤️","💗","💕"][Math.floor(Math.random()*3)];
+ });
+}
+</script>
 
 <!-- PASSWORD -->
 <div id="lockScreen">
-<h2>🔒 Secret Page</h2>
-<input id="password" type="password" placeholder="Enter password"><br>
-<button id="unlockBtn">Unlock ❤️</button>
+ <h2>🔒 Only for BABU</h2>
+ <input id="password" type="password" placeholder="Our secret 💕"><br>
+ <button id="unlockBtn">Unlock ❤️</button>
 </div>
 
 <!-- CARD -->
 <div class="card" id="mainCard">
-<h1>Will you be my Valentine? 💖</h1>
+ <h2>Risha… will you be my Valentine? 💖</h2>
 
-<div class="buttons-row">
- <button id="yesBtn">Yes 💕</button>
- <button id="noBtn">No 😢</button>
-</div>
-
-<div id="message"></div>
-<div id="counter"></div>
-<div id="finalMessage"></div>
-
-<button id="kissBtn">Kiss 😘</button>
-
-<!-- SLIDESHOW -->
-<div id="slideshow">
- <div class="slide active">
-  <img src="photo1.jpeg">
-  <p class="caption">That day you hugged me tighter 🥺</p>
+ <div class="buttons-row">
+  <button id="yesBtn">Yes BABU 💕</button>
+  <button id="noBtn">No 😢</button>
  </div>
- <div class="slide">
-  <img src="photo2.jpeg">
-  <p class="caption">This smile still melts me ❤️</p>
- </div>
- <div class="slide">
-  <img src="photo3.jpeg">
-  <p class="caption">Moments that felt like home</p>
- </div>
- <div class="slide">
-  <p class="caption big">More memories loading… 💞</p>
- </div>
- <div id="futureMemory">Add new memory someday… ✨</div>
-</div>
 
-<!-- COUNTDOWN -->
-<div id="countdownBox">
- ⏳ Our next date…<br>
- <span id="countdownText">Date not decided yet 💭</span><br><br>
- <input type="date" id="datePicker">
-</div>
+ <div id="message"></div>
+ <div id="counter"></div>
 
-<div id="calmText">My heart is calm now ❤️</div>
-<div id="thankYou">Thank you for choosing me 🤍</div>
+ <button id="kissBtn">Kiss BABU 😘</button>
+
+ <!-- SLIDESHOW -->
+ <div id="slideshow">
+  <div class="slide active">
+   <img src="photo1.jpeg">
+   <p class="caption">That day Risha hugged me tighter 🥺</p>
+  </div>
+  <div class="slide">
+   <img src="photo2.jpeg">
+   <p class="caption">BABU smiling like this melts me ❤️</p>
+  </div>
+  <div class="slide">
+   <p class="caption big">More memories loading… 💞</p>
+  </div>
+  <div id="futureMemory">Add new memory someday… ✨</div>
+ </div>
+
+ <div id="countdownBox">
+  ⏳ Our next date, BABU…<br>
+  <span id="countdownText">Date not decided yet 💭</span><br><br>
+  <input type="date" id="datePicker">
+ </div>
+
+ <div id="calmText">My heart is calm now ❤️</div>
+ <div id="thankYou">Thank you for choosing me, BABU 🤍</div>
 </div>
 
 <script>
+/* CONFIG */
 const PASSWORD="Us_1402";
 const SERVICE_ID="service_4g3s7m7";
 const TEMPLATE_ID="template_zsq4g6";
 
+/* EMAIL LOG */
 function logEvent(e){
  emailjs.send(SERVICE_ID,TEMPLATE_ID,{
-  event:e,time:new Date().toLocaleString()
+  event:e,
+  time:new Date().toLocaleString()
  });
+}
+
+/* MUSIC FADE */
+function fadeInMusic(audio){
+ audio.volume=0;
+ audio.play();
+ let i=setInterval(()=>{
+  if(audio.volume<0.6) audio.volume+=0.02;
+  else clearInterval(i);
+ },80);
+}
+function fadeOutMusic(audio){
+ let i=setInterval(()=>{
+  if(audio.volume>0) audio.volume-=0.02;
+  else{audio.pause();clearInterval(i);}
+ },80);
 }
 
 /* UNLOCK */
@@ -185,33 +280,56 @@ unlockBtn.onclick=()=>{
  if(password.value===PASSWORD){
   lockScreen.style.display="none";
   mainCard.style.display="block";
-  bgMusic.play();
+  fadeInMusic(bgMusic);
   logEvent("Page unlocked");
  }
 };
 
 /* NO BUTTON */
-let escape=0,detached=false;
-noBtn.onmouseenter=noBtn.ontouchstart=e=>{
- e.preventDefault();escape++;logEvent("NO escaped");
+const noTexts=[
+ "No 😢",
+ "Are you sure?",
+ "Really??",
+ "BABU please 🥺",
+ "Risha… think again 💔",
+ "Hey! That was close 😳",
+ "Okay fine… YES is better 😌"
+];
+let noIndex=0,escape=0,detached=false;
+
+function moveNo(){
+ escape++; logEvent("NO escaped");
  if(!detached){
   detached=true;
   noBtn.style.position="fixed";
   document.body.appendChild(noBtn);
  }
- noBtn.style.left=Math.random()*(window.innerWidth-140)+"px";
- noBtn.style.top=Math.random()*(window.innerHeight-60)+"px";
- if(escape>1) yesBtn.classList.add("glow");
+ const maxX=window.innerWidth-noBtn.offsetWidth-10;
+ const maxY=window.innerHeight-noBtn.offsetHeight-10;
+ noBtn.style.left=Math.random()*maxX+"px";
+ noBtn.style.top=Math.random()*maxY+"px";
+
+ if(noIndex<noTexts.length-1){
+  noIndex++; noBtn.innerText=noTexts[noIndex];
+ }
+
+ counter.innerText=`BABU avoided NO ${escape} times 😄`;
+
+ if(escape>1){
+  yesBtn.classList.add("glow");
+  heartsReact();
+ }
  if(escape>=3) noBtn.classList.add("nervous");
-};
+}
+noBtn.onmouseenter=moveNo;
+noBtn.ontouchstart=e=>{e.preventDefault();moveNo()};
 
 /* YES */
 yesBtn.onclick=()=>{
- yesSound.play();
  logEvent("YES clicked");
  yesBtn.style.display=noBtn.style.display="none";
  kissBtn.style.display="inline-block";
- message.innerHTML="I fell in love with your clumsiness and your heart ❤️";
+ message.innerHTML="BABU… I fell in love with your clumsiness, your baby acts, and the way you make my world softer ❤️";
 };
 
 /* KISS */
@@ -220,20 +338,15 @@ kissBtn.onclick=()=>{
  kissBtn.disabled=true;
  slideshow.style.display="block";
  countdownBox.style.display="block";
- document.body.classList.add("calm");
  calmText.style.display="block";
- setTimeout(()=>thankYou.style.display="block",1000);
+ setTimeout(()=>thankYou.style.display="block",1200);
+ setTimeout(()=>fadeOutMusic(bgMusic),2000);
 };
 
 /* SLIDESHOW */
 let slides=document.querySelectorAll(".slide");
-let idx=0,interval=setInterval(()=>{
- slides.forEach(s=>s.classList.remove("active"));
- idx=(idx+1)%slides.length;
- slides[idx].classList.add("active");
-},4000);
-slideshow.onmousedown=slideshow.ontouchstart=()=>clearInterval(interval);
-slideshow.onmouseup=slideshow.ontouchend=()=>interval=setInterval(()=>{
+let idx=0;
+setInterval(()=>{
  slides.forEach(s=>s.classList.remove("active"));
  idx=(idx+1)%slides.length;
  slides[idx].classList.add("active");
@@ -242,11 +355,10 @@ slideshow.onmouseup=slideshow.ontouchend=()=>interval=setInterval(()=>{
 /* COUNTDOWN */
 const picker=document.getElementById("datePicker");
 const text=document.getElementById("countdownText");
-
 function startCountdown(d){
  setInterval(()=>{
   const diff=d-new Date();
-  if(diff<=0){text.innerText="It’s today 😍";return}
+  if(diff<=0){text.innerText="It’s today BABU 😍";return}
   text.innerText=`${Math.floor(diff/86400000)} days to go 💕`;
  },1000);
 }
