@@ -247,7 +247,7 @@ function heartsReact(){
 
 <script>
 /* CONFIG */
-const PASSWORD="Us_1402";
+const PASSWORD="Forever";
 const SERVICE_ID="YOUR_SERVICE_ID";
 const TEMPLATE_ID="YOUR_TEMPLATE_ID";
 
@@ -322,12 +322,14 @@ yesBtn.onclick=()=>{
 /* KISS + WHATSAPP */
 let whatsappOpened=false;
 kissBtn.onclick=()=>{
+ logEvent("KISS clicked");
  kissBtn.disabled=true;
  slideshow.style.display="block";
  countdownBox.style.display="block";
  calmText.style.display="block";
  setTimeout(()=>thankYou.style.display="block",1200);
- setTimeout(()=>fadeOutMusic(bgMusic),2000);
+ 
+ // The music fade-out is now removed, so bgMusic will keep playing! ✅
 
  setTimeout(()=>{
   if(!whatsappOpened){
