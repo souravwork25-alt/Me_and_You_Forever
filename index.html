@@ -154,11 +154,13 @@ function fadeOutMusic(a){
  let i=setInterval(()=>{if(a.volume>0)a.volume-=0.02;else{a.pause();clearInterval(i)}},80);
 }
 
-unlockBtn.onclick=()=>{
- if(password.value===PASSWORD){
-  lockScreen.style.display="none";
-  mainCard.style.display="block";
+unlockBtn.onclick = () => {
+ if (passwordInput.value === PASSWORD) {
+  lockScreen.style.display = "none";
+  mainCard.style.display = "block";
   fadeInMusic(bgMusic);
+ } else {
+  alert("Wrong password 😜");
  }
 };
 
