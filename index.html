@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Only For Risha ❤️</title>
+<title>Only For You ❤️</title>
 
-<!-- EMAILJS -->
+<!-- EmailJS -->
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 <script>
 (function(){
@@ -26,17 +26,17 @@ body{
  overflow:hidden;padding:10px;
  transition:background 3s ease;
 }
+
 button{
  padding:14px 20px;border-radius:30px;
  border:none;cursor:pointer;font-size:16px;
  margin:8px;transition:transform .25s;
 }
-button:hover{transform:scale(1.07)}
 #yesBtn,#noBtn{min-width:140px}
 
 /* ===== PASSWORD ===== */
 #lockScreen{text-align:center}
-#lockScreen input{
+input{
  padding:14px;border-radius:20px;border:none;
  font-size:16px;width:220px;text-align:center
 }
@@ -49,18 +49,13 @@ button:hover{transform:scale(1.07)}
  max-width:420px;width:100%;
  text-align:center;
  box-shadow:0 15px 40px rgba(0,0,0,.3);
- animation:fadeIn 1s forwards;
 }
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-
 .buttons-row{display:flex;justify-content:center;gap:12px}
+
+/* ===== BUTTONS ===== */
 #yesBtn{background:var(--pink);color:white;font-weight:bold}
 #noBtn{background:white;color:var(--pink)}
-
-#kissBtn{
- display:none;background:#ff69b4;
- color:white;font-weight:bold
-}
+#kissBtn{display:none;background:#ff69b4;color:white;font-weight:bold}
 
 /* ===== EFFECTS ===== */
 @keyframes shake{
@@ -70,15 +65,11 @@ button:hover{transform:scale(1.07)}
  75%{transform:translate(-2px,-2px)}
 }
 .nervous{animation:shake .4s infinite}
-
-.glow{
- animation:glowPulse var(--glowSpeed) infinite alternate
-}
+.glow{animation:glowPulse var(--glowSpeed) infinite alternate}
 @keyframes glowPulse{
  from{box-shadow:0 0 10px rgba(255,46,99,.6)}
  to{box-shadow:0 0 30px rgba(255,46,99,1)}
 }
-
 .explode{
  position:fixed;font-size:22px;
  animation:explode 1.2s forwards
@@ -97,15 +88,9 @@ button:hover{transform:scale(1.07)}
  border-radius:16px;
  box-shadow:0 8px 20px rgba(0,0,0,.35)
 }
-.caption{font-size:14px;margin-top:8px;opacity:.9}
+.caption{font-size:14px;margin-top:6px;opacity:.9}
 .caption.big{font-size:18px;margin-top:40px;font-weight:bold}
-.dots{margin-top:6px}
-.dot{
- height:8px;width:8px;
- background:#ffd1dc;border-radius:50%;
- display:inline-block;margin:0 3px;opacity:.5
-}
-.dot.active{opacity:1}
+#futureMemory{margin-top:10px;font-size:14px;font-style:italic}
 
 /* ===== COUNTDOWN ===== */
 #countdownBox{
@@ -113,19 +98,14 @@ button:hover{transform:scale(1.07)}
  background:rgba(0,0,0,.25);
  padding:12px;border-radius:16px
 }
-#futureMemory{
- margin-top:10px;font-size:14px;
- opacity:.85;font-style:italic
-}
 
-/* ===== CALM ENDING ===== */
+/* ===== ENDING ===== */
+#message,#counter,#finalMessage,#calmText,#thankYou{
+ margin-top:12px;font-weight:bold
+}
+#calmText,#thankYou{display:none}
 .calm{
  background:linear-gradient(135deg,#ffd1dc,#ffb7c5)
-}
-
-@media(max-width:480px){
- button{width:100%}
- .buttons-row{flex-direction:row}
 }
 </style>
 </head>
@@ -134,92 +114,86 @@ button:hover{transform:scale(1.07)}
 
 <audio id="bgMusic" loop src="https://cdn.pixabay.com/download/audio/2023/03/28/audio_5d5f5a6b2b.mp3"></audio>
 <audio id="heartbeat" loop src="https://cdn.pixabay.com/download/audio/2022/10/19/audio_1c8d7d4f76.mp3"></audio>
+<audio id="yesSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_9c6c7c3b6a.mp3"></audio>
 
 <!-- PASSWORD -->
 <div id="lockScreen">
- <h2>🔒 Only for BABU</h2>
- <input id="password" type="password" placeholder="Enter our secret 💕"><br>
- <button id="unlockBtn">Unlock ❤️</button>
- <p id="error"></p>
+<h2>🔒 Secret Page</h2>
+<input id="password" type="password" placeholder="Enter password"><br>
+<button id="unlockBtn">Unlock ❤️</button>
 </div>
 
 <!-- CARD -->
-<div class="card" id="card">
-<h1>Risha, will you be my Valentine? 💖</h1>
+<div class="card" id="mainCard">
+<h1>Will you be my Valentine? 💖</h1>
 
 <div class="buttons-row">
- <button id="yesBtn">Yes BABU 💕</button>
+ <button id="yesBtn">Yes 💕</button>
  <button id="noBtn">No 😢</button>
 </div>
 
 <div id="message"></div>
 <div id="counter"></div>
+<div id="finalMessage"></div>
 
-<button id="kissBtn">Kiss BABU 😘</button>
+<button id="kissBtn">Kiss 😘</button>
 
 <!-- SLIDESHOW -->
 <div id="slideshow">
  <div class="slide active">
   <img src="photo1.jpeg">
-  <p class="caption">That day Risha hugged me tighter 🥺</p>
+  <p class="caption">That day you hugged me tighter 🥺</p>
  </div>
  <div class="slide">
   <img src="photo2.jpeg">
-  <p class="caption">BABU smiling like this should be illegal 😭❤️</p>
+  <p class="caption">This smile still melts me ❤️</p>
  </div>
  <div class="slide">
   <img src="photo3.jpeg">
-  <p class="caption">Risha, this moment felt like home</p>
- </div>
- <div class="slide">
-  <img src="photo4.jpeg">
-  <p class="caption">BABU + me = my safest place</p>
+  <p class="caption">Moments that felt like home</p>
  </div>
  <div class="slide">
   <p class="caption big">More memories loading… 💞</p>
  </div>
- <div class="dots" id="dots"></div>
+ <div id="futureMemory">Add new memory someday… ✨</div>
 </div>
 
-<div id="futureMemory">Add new memory someday… ✨</div>
-
+<!-- COUNTDOWN -->
 <div id="countdownBox">
- ⏳ Our next date, BABU…<br>
+ ⏳ Our next date…<br>
  <span id="countdownText">Date not decided yet 💭</span><br><br>
  <input type="date" id="datePicker">
 </div>
 
+<div id="calmText">My heart is calm now ❤️</div>
+<div id="thankYou">Thank you for choosing me 🤍</div>
 </div>
 
 <script>
-/* ===== CONFIG ===== */
 const PASSWORD="Us_1402";
-const SERVICE_ID="service_4g3s7m7";   // 🔴
-const TEMPLATE_ID="template_zsq4g6c"; // 🔴
+const SERVICE_ID="service_4g3s7m7";
+const TEMPLATE_ID="template_zsq4g6";
 
 function logEvent(e){
  emailjs.send(SERVICE_ID,TEMPLATE_ID,{
-  event:e,
-  time:new Date().toLocaleString()
+  event:e,time:new Date().toLocaleString()
  });
 }
 
-/* ===== PASSWORD ===== */
+/* UNLOCK */
 unlockBtn.onclick=()=>{
  if(password.value===PASSWORD){
   lockScreen.style.display="none";
-  card.style.display="block";
+  mainCard.style.display="block";
   bgMusic.play();
-  logEvent("Page unlocked by BABU");
- }else{
-  error.innerText="Wrong secret 😜";
+  logEvent("Page unlocked");
  }
 };
 
-/* ===== NO BUTTON ===== */
+/* NO BUTTON */
 let escape=0,detached=false;
-noBtn.onmouseenter=noBtn.ontouchstart=()=>{
- escape++; logEvent("NO escaped");
+noBtn.onmouseenter=noBtn.ontouchstart=e=>{
+ e.preventDefault();escape++;logEvent("NO escaped");
  if(!detached){
   detached=true;
   noBtn.style.position="fixed";
@@ -227,79 +201,58 @@ noBtn.onmouseenter=noBtn.ontouchstart=()=>{
  }
  noBtn.style.left=Math.random()*(window.innerWidth-140)+"px";
  noBtn.style.top=Math.random()*(window.innerHeight-60)+"px";
- if(escape>1){
-  yesBtn.classList.add("glow");
-  heartbeat.play();
- }
+ if(escape>1) yesBtn.classList.add("glow");
  if(escape>=3) noBtn.classList.add("nervous");
 };
 
-/* ===== YES ===== */
+/* YES */
 yesBtn.onclick=()=>{
- logEvent("YES clicked 💕");
+ yesSound.play();
+ logEvent("YES clicked");
  yesBtn.style.display=noBtn.style.display="none";
  kissBtn.style.display="inline-block";
- message.innerHTML=
- `BABU,<br>I fell in love with your clumsiness,<br>
- the way you act like a baby sometimes ❤️`;
+ message.innerHTML="I fell in love with your clumsiness and your heart ❤️";
 };
 
-/* ===== KISS ===== */
+/* KISS */
 kissBtn.onclick=()=>{
- logEvent("KISS 😘");
+ logEvent("KISS clicked");
  kissBtn.disabled=true;
- document.body.classList.add("calm");
  slideshow.style.display="block";
  countdownBox.style.display="block";
-
- for(let i=0;i<14;i++){
-  const h=document.createElement("div");
-  h.className="explode";h.innerText="💖";
-  h.style.left="50vw";h.style.top="60vh";
-  h.style.setProperty("--x",`${Math.random()*200-100}px`);
-  h.style.setProperty("--y",`${Math.random()*200-100}px`);
-  document.body.appendChild(h);
-  setTimeout(()=>h.remove(),1200);
- }
+ document.body.classList.add("calm");
+ calmText.style.display="block";
+ setTimeout(()=>thankYou.style.display="block",1000);
 };
 
-/* ===== SLIDESHOW ===== */
-let idx=0;
-const slides=document.querySelectorAll(".slide");
-const dotsBox=document.getElementById("dots");
-slides.forEach((_,i)=>{
- const d=document.createElement("span");
- d.className="dot"+(i===0?" active":"");
- dotsBox.appendChild(d);
-});
-const dots=document.querySelectorAll(".dot");
-function show(n){
+/* SLIDESHOW */
+let slides=document.querySelectorAll(".slide");
+let idx=0,interval=setInterval(()=>{
  slides.forEach(s=>s.classList.remove("active"));
- dots.forEach(d=>d.classList.remove("active"));
- slides[n].classList.add("active");
- if(dots[n])dots[n].classList.add("active");
-}
-let interval=setInterval(()=>{
- idx=(idx+1)%slides.length;show(idx)
+ idx=(idx+1)%slides.length;
+ slides[idx].classList.add("active");
 },4000);
 slideshow.onmousedown=slideshow.ontouchstart=()=>clearInterval(interval);
 slideshow.onmouseup=slideshow.ontouchend=()=>interval=setInterval(()=>{
- idx=(idx+1)%slides.length;show(idx)
+ slides.forEach(s=>s.classList.remove("active"));
+ idx=(idx+1)%slides.length;
+ slides[idx].classList.add("active");
 },4000);
 
-/* ===== COUNTDOWN ===== */
+/* COUNTDOWN */
 const picker=document.getElementById("datePicker");
 const text=document.getElementById("countdownText");
+
 function startCountdown(d){
  setInterval(()=>{
   const diff=d-new Date();
-  if(diff<=0){text.innerText="It’s today, BABU 😍";return}
+  if(diff<=0){text.innerText="It’s today 😍";return}
   text.innerText=`${Math.floor(diff/86400000)} days to go 💕`;
  },1000);
 }
 picker.onchange=()=>{
  localStorage.setItem("date",picker.value);
- logEvent("Date selected by BABU");
+ logEvent("Date selected");
  startCountdown(new Date(picker.value+"T00:00"));
 };
 const saved=localStorage.getItem("date");
