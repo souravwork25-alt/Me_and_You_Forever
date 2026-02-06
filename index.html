@@ -5,13 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Only For BABU ❤️</title>
 
-<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-<script>
-(function(){
- emailjs.init("YOUR_PUBLIC_KEY"); // 🔴 replace
-})();
-</script>
-
 <style>
 :root{--pink:#ff2e63}
 
@@ -73,6 +66,153 @@ button:active{transform:scale(.95)}
  justify-content:center;
  gap:10px;
  flex-wrap:wrap;
+}
+
+#yesBtn{background:var(--pink);color:white;font-weight:bold;min-width:140px;}
+#noBtn{background:white;color:var(--pink);min-width:140px;}
+#kissBtn{display:none;background:#ff69b4;color:white;font-weight:bold;}
+
+/* ===== EFFECTS ===== */
+@keyframes shake{
+ 0%,100%{transform:translate(0)}
+ 25%{transform:translate(-2px,2px)}
+ 50%{transform:translate(2px,-2px)}
+ 75%{transform:translate(-2px,-2px)}
+}
+.nervous{animation:shake .4s infinite}
+
+.glow{animation:glowPulse 1s infinite alternate;}
+@keyframes glowPulse{
+ from{box-shadow:0 0 8px rgba(255,46,99,.5)}
+ to{box-shadow:0 0 24px rgba(255,46,99,1)}
+}
+
+#message,#counter,#calmText,#thankYou{margin-top:10px;font-weight:500;}
+#calmText,#thankYou{display:none}
+
+/* ===== SLIDESHOW ===== */
+#slideshow{display:none;margin-top:14px}
+.slide{display:none}
+.slide.active{display:block}
+.slide img{width:100%;max-width:260px;border-radius:16px;box-shadow:0 8px 20px rgba(0,0,0,.35);}
+.caption{font-size:14px;margin-top:6px;opacity:.9;}
+
+/* ===== PASSWORD ===== */
+#lockScreen{text-align:center}
+#lockScreen input{padding:14px;border-radius:20px;border:none;width:220px;font-size:16px;text-align:center;}
+#unlockBtn{background:var(--pink);color:white}
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic" loop preload="auto" src="hirohasaimoto-fruit-of-the-heart-454938.mp3"></audio>
+
+<script>
+for(let i=0;i<22;i++){
+ const h=document.createElement("div");
+ h.className="heart";
+ h.innerText=["💖","💕","💗"][Math.floor(Math.random()*3)];
+ h.style.left=Math.random()*100+"vw";
+ h.style.animationDuration=6+Math.random()*6+"s";
+ h.style.fontSize=14+Math.random()*18+"px";
+ document.body.appendChild(h);
+}
+</script>
+
+<div id="lockScreen">
+ <h2>🔒 Only for BABU</h2>
+ <input id="password" type="password" placeholder="Our secret 💕"><br>
+ <button id="unlockBtn">Unlock ❤️</button>
+</div>
+
+<div class="card" id="mainCard">
+ <h2>Risha… will you be my Valentine? 💖</h2>
+ <div class="buttons-row">
+  <button id="yesBtn">Yes BABU 💕</button>
+  <button id="noBtn">No 😢</button>
+ </div>
+ <div id="message"></div>
+ <div id="counter"></div>
+ <button id="kissBtn">Kiss BABU 😘</button>
+
+ <div id="slideshow">
+  <div class="slide active"><img src="photo1.jpeg"><p class="caption">That day Risha hugged me tighter 🥺</p></div>
+  <div class="slide"><img src="photo2.jpeg"><p class="caption">BABU smiling like this melts me ❤️</p></div>
+  <div class="slide"><img src="photo3.jpeg"><p class="caption">Risha, this moment felt like home</p></div>
+  <div class="slide"><img src="photo4.jpeg"><p class="caption">BABU + me = my safest place</p></div>
+ </div>
+
+ <div id="calmText">My heart is calm now ❤️</div>
+ <div id="thankYou">Thank you for choosing me, BABU 🤍</div>
+</div>
+
+<script>
+const PASSWORD="Us_1402";
+const bgMusic = document.getElementById("bgMusic");
+
+/* UNLOCK & START MUSIC */
+unlockBtn.onclick = () => {
+  const passwordInput = document.getElementById("password");
+  if (passwordInput.value === PASSWORD) {
+    lockScreen.style.display = "none";
+    mainCard.style.display = "block";
+    
+    // Play music once unlocked
+    bgMusic.volume = 0.6;
+    bgMusic.play().catch(e => console.log("Music blocked:", e));
+  } else {
+    alert("Wrong password! 🥺");
+  }
+};
+
+/* NO BUTTON LOGIC */
+let escape=0;
+const noBtn = document.getElementById("noBtn");
+const moveNo = () => {
+  escape++;
+  noBtn.style.position = "fixed";
+  noBtn.style.left = Math.random() * (window.innerWidth - 100) + "px";
+  noBtn.style.top = Math.random() * (window.innerHeight - 50) + "px";
+  document.getElementById("counter").innerText = `BABU avoided NO ${escape} times 😄`;
+};
+noBtn.onmouseenter = moveNo;
+noBtn.ontouchstart = (e) => { e.preventDefault(); moveNo(); };
+
+/* YES BUTTON LOGIC */
+yesBtn.onclick = () => {
+  yesBtn.style.display = noBtn.style.display = "none";
+  kissBtn.style.display = "inline-block";
+  document.getElementById("message").innerHTML = "BABU… I fell in love with your baby acts and the way you make my world softer ❤️";
+};
+
+/* KISS & WHATSAPP */
+kissBtn.onclick = () => {
+  kissBtn.disabled = true;
+  document.getElementById("slideshow").style.display = "block";
+  document.getElementById("calmText").style.display = "block";
+  setTimeout(() => document.getElementById("thankYou").style.display = "block", 1200);
+
+  setTimeout(() => {
+    const msg = "Hey BABU ❤️, Happy Valentine's Day! My heart chose you, Risha 💖";
+    window.open("https://wa.me/917478640411?text=" + encodeURIComponent(msg), "_blank");
+  }, 3000);
+};
+
+/* SLIDESHOW LOGIC */
+let slides = document.querySelectorAll(".slide");
+let idx = 0;
+setInterval(() => {
+  if (slides.length > 0) {
+    slides.forEach(s => s.classList.remove("active"));
+    idx = (idx + 1) % slides.length;
+    slides[idx].classList.add("active");
+  }
+}, 4000);
+</script>
+
+</body>
+</html>
 }
 
 #yesBtn{
