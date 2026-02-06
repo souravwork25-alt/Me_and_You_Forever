@@ -9,7 +9,7 @@
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 <script>
 (function(){
- emailjs.init("jv4dBelhXAoMEvANF"); // 🔴 replace
+ emailjs.init("YOUR_PUBLIC_KEY"); // 🔴 replace
 })();
 </script>
 
@@ -113,7 +113,7 @@ button:active{transform:scale(.95)}
 }
 
 /* ===== TEXT ===== */
-#message,#counter,#finalMessage,#calmText,#thankYou{
+#message,#counter,#calmText,#thankYou{
  margin-top:10px;
  font-weight:500;
 }
@@ -139,7 +139,6 @@ button:active{transform:scale(.95)}
  margin-top:40px;
  font-weight:bold;
 }
-
 #futureMemory{
  margin-top:10px;
  font-size:14px;
@@ -157,9 +156,7 @@ button:active{transform:scale(.95)}
 }
 
 /* ===== PASSWORD ===== */
-#lockScreen{
- text-align:center;
-}
+#lockScreen{text-align:center}
 #lockScreen input{
  padding:14px;
  border-radius:20px;
@@ -168,19 +165,16 @@ button:active{transform:scale(.95)}
  font-size:16px;
  text-align:center;
 }
-#unlockBtn{
- background:var(--pink);
- color:white;
-}
+#unlockBtn{background:var(--pink);color:white}
 </style>
 </head>
 
 <body>
 
-<!-- BACKGROUND MUSIC -->
+<!-- MUSIC -->
 <audio id="bgMusic" loop src="https://cdn.pixabay.com/download/audio/2023/03/28/audio_5d5f5a6b2b.mp3"></audio>
 
-<!-- FLOATING HEARTS -->
+<!-- HEARTS -->
 <script>
 for(let i=0;i<22;i++){
  const h=document.createElement("div");
@@ -260,8 +254,8 @@ function heartsReact(){
 <script>
 /* CONFIG */
 const PASSWORD="Us_1402";
-const SERVICE_ID="service_4g3s7m7";
-const TEMPLATE_ID="template_zsq4g6c";
+const SERVICE_ID="YOUR_SERVICE_ID";
+const TEMPLATE_ID="YOUR_TEMPLATE_ID";
 
 /* EMAIL LOG */
 function logEvent(e){
@@ -271,7 +265,7 @@ function logEvent(e){
  });
 }
 
-/* MUSIC FADE (SAFE) */
+/* MUSIC FADE */
 function fadeInMusic(audio){
  audio.volume=0;
  audio.play().then(()=>{
@@ -300,13 +294,9 @@ unlockBtn.onclick=()=>{
 
 /* NO BUTTON */
 const noTexts=[
- "No 😢",
- "Are you sure?",
- "Really??",
- "BABU please 🥺",
- "Risha… think again 💔",
- "Hey! That was close 😳",
- "Okay fine… YES is better 😌"
+ "No 😢","Are you sure?","Really??",
+ "BABU please 🥺","Risha… think again 💔",
+ "Hey! That was close 😳","Okay fine… YES is better 😌"
 ];
 let noIndex=0,escape=0,detached=false;
 
@@ -325,7 +315,6 @@ function moveNo(){
  if(noIndex<noTexts.length-1){
   noIndex++; noBtn.innerText=noTexts[noIndex];
  }
-
  counter.innerText=`BABU avoided NO ${escape} times 😄`;
 
  if(escape>1){
@@ -345,7 +334,8 @@ yesBtn.onclick=()=>{
  message.innerHTML="BABU… I fell in love with your clumsiness, your baby acts, and the way you make my world softer ❤️";
 };
 
-/* KISS */
+/* KISS + WHATSAPP */
+let whatsappOpened=false;
 kissBtn.onclick=()=>{
  logEvent("KISS clicked");
  kissBtn.disabled=true;
@@ -354,9 +344,38 @@ kissBtn.onclick=()=>{
  calmText.style.display="block";
  setTimeout(()=>thankYou.style.display="block",1200);
  setTimeout(()=>fadeOutMusic(bgMusic),2000);
+
+ setTimeout(()=>{
+  if(!whatsappOpened){
+   whatsappOpened=true;
+   const msg=`Hey BABU ❤️,
+
+I know I’m not perfect…
+I make mistakes, I overthink,
+and sometimes I don’t say things the right way.
+
+But one thing I know for sure —
+my heart chose you, Risha 💖
+
+This Valentine’s Day,
+I just want to say sorry for every moment
+I ever hurt you without meaning to…
+
+and thank you for staying,
+for being soft,
+for being you 🌸
+
+Happy Valentine’s Day, BABU 🤍  
+– Yours`;
+   window.open(
+    "https://wa.me/?text="+encodeURIComponent(msg),
+    "_blank"
+   );
+  }
+ },3000);
 };
 
-/* SLIDESHOW AUTO */
+/* SLIDESHOW */
 let slides=document.querySelectorAll(".slide");
 let idx=0;
 setInterval(()=>{
