@@ -9,7 +9,7 @@
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 <script>
 (function(){
- emailjs.init("jv4dBelhXAoMEvANF"); // 🔴 replace
+ emailjs.init("jv4dBelhXAoMEvANF"); // ✅ your public key
 })();
 </script>
 
@@ -73,6 +73,185 @@ button{
 #lockScreen{text-align:center}
 #lockScreen input{
  padding:14px;border-radius:20px;border:none;
+ width:220px;font-size:16px;text-align:center
+}
+#unlockBtn{background:var(--pink);color:white}
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic" loop src="https://cdn.pixabay.com/download/audio/2023/03/28/audio_5d5f5a6b2b.mp3"></audio>
+
+<script>
+// floating hearts
+for(let i=0;i<22;i++){
+ const h=document.createElement("div");
+ h.className="heart";
+ h.innerText=["💖","💕","💗"][Math.floor(Math.random()*3)];
+ h.style.left=Math.random()*100+"vw";
+ h.style.animationDuration=6+Math.random()*6+"s";
+ h.style.fontSize=14+Math.random()*18+"px";
+ document.body.appendChild(h);
+}
+function heartsReact(){
+ document.querySelectorAll(".heart").forEach(h=>{
+  h.innerText=["❤️","💗","💕"][Math.floor(Math.random()*3)];
+ });
+}
+</script>
+
+<!-- LOCK SCREEN -->
+<div id="lockScreen">
+ <h2>🔒 Only for BABU</h2>
+ <input id="password" type="password" placeholder="Our secret 💕"><br>
+ <button id="unlockBtn">Unlock ❤️</button>
+</div>
+
+<!-- MAIN CARD -->
+<div class="card" id="mainCard">
+ <h2>Risha… will you be my Valentine? 💖</h2>
+
+ <div class="buttons-row">
+  <button id="yesBtn">Yes BABU 💕</button>
+  <button id="noBtn">No 😢</button>
+ </div>
+
+ <div id="message"></div>
+ <div id="counter"></div>
+
+ <button id="kissBtn">Kiss BABU 😘</button>
+
+ <div id="slideshow">
+  <div class="slide active"><img src="photo1.jpeg"><p class="caption">That day you hugged me tighter 🥺</p></div>
+  <div class="slide"><img src="photo2.jpeg"><p class="caption">Your smile melts me ❤️</p></div>
+  <div class="slide"><img src="photo3.jpeg"><p class="caption">Moments that felt like home</p></div>
+  <div class="slide"><img src="photo4.jpeg"><p class="caption">Every memory matters 🤍</p></div>
+  <div class="slide"><p class="caption big">More memories loading… 💞</p></div>
+ </div>
+
+ <div id="countdownBox">
+ ⏳ Our next date BABU…<br>
+ <span id="countdownText">Date not decided yet 💭</span><br><br>
+ <input type="date" id="datePicker">
+ </div>
+
+ <div id="calmText">My heart is calm now ❤️</div>
+ <div id="thankYou">Thank you for choosing me, BABU 🤍</div>
+</div>
+
+<script>
+/* ==== DOM ==== */
+const passwordInput=document.getElementById("password");
+const unlockBtn=document.getElementById("unlockBtn");
+const lockScreen=document.getElementById("lockScreen");
+const mainCard=document.getElementById("mainCard");
+const yesBtn=document.getElementById("yesBtn");
+const noBtn=document.getElementById("noBtn");
+const kissBtn=document.getElementById("kissBtn");
+const message=document.getElementById("message");
+const counter=document.getElementById("counter");
+const slideshow=document.getElementById("slideshow");
+const countdownBox=document.getElementById("countdownBox");
+const calmText=document.getElementById("calmText");
+const thankYou=document.getElementById("thankYou");
+const bgMusic=document.getElementById("bgMusic");
+
+/* ==== CONFIG ==== */
+const PASSWORD="Forever";
+const SERVICE_ID="service_4g3s7m7";
+const TEMPLATE_ID="template_zsq4g6c";
+
+/* ==== MUSIC ==== */
+function fadeInMusic(a){
+ a.volume=0;a.play();
+ let i=setInterval(()=>{if(a.volume<0.6)a.volume+=0.02;else clearInterval(i)},80);
+}
+function fadeOutMusic(a){
+ let i=setInterval(()=>{if(a.volume>0)a.volume-=0.02;else{a.pause();clearInterval(i)}},80);
+}
+
+/* ==== UNLOCK ==== */
+unlockBtn.onclick=()=>{
+ if(passwordInput.value===PASSWORD){
+  lockScreen.style.display="none";
+  mainCard.style.display="block";
+  fadeInMusic(bgMusic);
+ }else alert("Wrong password 😜");
+};
+
+/* ==== EMAIL ==== */
+function sendLoveMail(){
+ emailjs.send(SERVICE_ID,TEMPLATE_ID,{
+  to_name:"Risha",
+  message:"She clicked YES ❤️ Valentine accepted!"
+ });
+}
+
+/* ==== NO BUTTON ==== */
+const noTexts=["No 😢","Are you sure?","Really??","BABU please 🥺","Think again 💔","Okay fine… YES 😌"];
+let escape=0,idx=0;
+function moveNo(){
+ escape++;
+ noBtn.style.position="fixed";
+ noBtn.style.left=Math.random()*(window.innerWidth-140)+"px";
+ noBtn.style.top=Math.random()*(window.innerHeight-60)+"px";
+ if(idx<noTexts.length-1) noBtn.innerText=noTexts[++idx];
+ counter.innerText=`BABU avoided NO ${escape} times 😄`;
+ if(escape>1){yesBtn.classList.add("glow");heartsReact()}
+ if(escape>=3) noBtn.classList.add("nervous");
+}
+noBtn.onmouseenter=moveNo;
+noBtn.ontouchstart=e=>{e.preventDefault();moveNo()};
+
+/* ==== YES ==== */
+yesBtn.onclick=()=>{
+ yesBtn.style.display=noBtn.style.display="none";
+ kissBtn.style.display="inline-block";
+ message.innerHTML="BABU… I fell in love with your clumsiness and baby acts ❤️";
+ sendLoveMail();
+};
+
+/* ==== KISS ==== */
+kissBtn.onclick=()=>{
+ kissBtn.disabled=true;
+ slideshow.style.display="block";
+ countdownBox.style.display="block";
+ calmText.style.display="block";
+ setTimeout(()=>thankYou.style.display="block",1200);
+ setTimeout(()=>fadeOutMusic(bgMusic),2000);
+};
+
+/* ==== SLIDES ==== */
+let slides=document.querySelectorAll(".slide"),s=0;
+setInterval(()=>{
+ slides.forEach(sl=>sl.classList.remove("active"));
+ s=(s+1)%slides.length;
+ slides[s].classList.add("active");
+},4000);
+
+/* ==== COUNTDOWN ==== */
+let timer;
+const picker=document.getElementById("datePicker");
+const text=document.getElementById("countdownText");
+function startCountdown(d){
+ clearInterval(timer);
+ timer=setInterval(()=>{
+  const diff=d-new Date();
+  if(diff<=0){text.innerText="It’s today BABU 😍";clearInterval(timer);return}
+  text.innerText=`${Math.floor(diff/86400000)} days to go 💕`;
+ },1000);
+}
+picker.onchange=()=>{
+ localStorage.setItem("date",picker.value);
+ startCountdown(new Date(picker.value+"T00:00"));
+};
+const saved=localStorage.getItem("date");
+if(saved){picker.value=saved;startCountdown(new Date(saved+"T00:00"))}
+</script>
+
+</body>
+</html>
  width:220px;font-size:16px;text-align:center
 }
 #unlockBtn{background:var(--pink);color:white}
